@@ -7,13 +7,13 @@
 
 @keyframes xcombo {
   /* Blink 4 times (0-40%) */
-  0%, 1%   { fill: #fff; }
+  0%, 1%   { fill: #888; }
   2%, 3% { fill: #66a4faff; }
-  4%, 5% { fill: #fff; }
+  4%, 5% { fill: #888; }
   6%, 7% { fill: #66a4faff; }
-  8%, 9% { fill: #fff; }
+  8%, 9% { fill: #888; }
   10%, 11% { fill: #66a4faff; }
-  12%      { fill: #fff; }
+  12%      { fill: #888; }
   /* Light up (40-100%) */
   13%, 100% { fill: #66a4faff; }
 }
