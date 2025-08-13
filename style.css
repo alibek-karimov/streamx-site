@@ -64,8 +64,7 @@
   position: relative;
   height: 70px;
   aspect-ratio: 4.21;
-    border-radius: 12px;
-
+  border-radius: 12px;
 }
 
 .main .depth-frame-1 {
@@ -1041,7 +1040,7 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   gap: 10px;
   position: relative;
   flex: 0 0 auto;
@@ -1908,4 +1907,18 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   -webkit-text-fill-color: #fff;
+}
+
+.language-switcher {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.language-switcher button {
+  cursor: pointer;
 }
