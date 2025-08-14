@@ -116,6 +116,10 @@ const translations = {
       "Запуск WEB страниц и приложений HTML5 / WebGL",
       "Запуск и управление приложений Windows",
     ],
+    statusMessages: {
+      success: "Ваше сообщение успешно отправлено!",
+      error: "Ошибка отправки сообщения. Попробуйте еще раз.",
+    }
   },
   kk: {
     menu: {
@@ -472,6 +476,22 @@ function setLanguage(lang) {
 function getQueryParam(name) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(name);
+}
+
+function getNestedTranslation(obj, keys) {
+  if (keys.length > 1) {
+    const key = keys.shift();
+    return getNestedTranslation(obj[key], keys)
+  }
+  return obj[keys[0]] || "";
+}
+
+function getTranslation(key) {
+  let t = translations[currentLang];
+  if (!t) {
+    t = translations.ru; // Fallback to ru if currentLang is not found
+  }
+  return getNestedTranslation(t, key.split('.')) || translations.ru[key] || "";
 }
 
 // On page load, set language from query param if present
