@@ -237,6 +237,10 @@ const translations = {
       "WEB беттерін және HTML5 / WebGL қосымшаларын іске қосу",
       "Windows қосымшаларын іске қосу және басқару",
     ],
+    statusMessages: {
+      success: "Сіздің хабарламаңыз сәтті жіберілді!",
+      error: "Хабарламаны жіберу қатесі. Қайта көріңіз.",
+    },
   },
   en: {
     menu: {
@@ -354,6 +358,10 @@ const translations = {
       "Launching WEB pages and HTML5 / WebGL applications",
       "Launching and managing Windows applications",
     ],
+    statusMessages: {
+      success: "Your message has been sent successfully!",
+      error: "Failed to send message. Please try again.",
+    },
   },
 };
 
