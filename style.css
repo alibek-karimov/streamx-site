@@ -1349,7 +1349,7 @@
 }
 
 .main .frame-15 {
-  height: 400px;
+  height: 500px;
   align-items: center;
   justify-content: center;
   gap: 40px;
@@ -1369,28 +1369,11 @@
   width: 100%;
 }
 
-
 .main .frame-15 form input.text-wrapper-2 {
   width: 100%;
   border: none;
   background: none;
   cursor: pointer;
-}
-
-.main .frame-15-2 {
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  padding: 30px;
-  flex: 1;
-  flex-grow: 1;
-  border-radius: 8px;
-  overflow: hidden;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  background-color: #ffffff;
 }
 
 .main .frame-15::before {
@@ -1411,10 +1394,36 @@
   pointer-events: none;
 }
 
+.main .frame-15-2 {
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 30px;
+  flex: 1;
+  flex-grow: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #ffffff;
+}
+
+.main .frame-15-3 {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  margin-top: 20px;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+
 .main .form-field {
   display: flex;
   flex-direction: column;
-  height: 58px;
+  height: 48px;
   align-items: flex-start;
   position: relative;
   align-self: stretch;
@@ -1475,7 +1484,7 @@
 .main .content {
   display: flex;
   flex-direction: column;
-  height: 48px;
+  height: 38px;
   align-items: flex-start;
   padding: 4px 0px;
   flex: 1;
@@ -1552,7 +1561,7 @@
 .main .trailing-icon {
   display: flex;
   width: 48px;
-  height: 48px;
+  height: 38px;
   align-items: center;
   justify-content: center;
   position: relative;

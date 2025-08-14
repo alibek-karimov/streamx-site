@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styleguide.css" />
     <link rel="stylesheet" href="style.css" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Lc01aUrAAAAAAAJGo8eiRCBWu13ncdGCGafkBuf"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -556,7 +556,7 @@
                                                         <div class="content">
                                                             <div class="input-text-container">
                                                                 <input type="text" class="input-text" id="emailInput"
-                                                                    name="email" required/>
+                                                                    name="email" required />
                                                             </div>
                                                             <div class="label-text-container">
                                                                 <div class="label-text" id="label-email">Телефон/Email
@@ -585,7 +585,7 @@
                                                         <div class="content">
                                                             <div class="input-text-container">
                                                                 <input type="text" class="input-text" id="messageInput"
-                                                                    name="message" ></textarea>
+                                                                    name="message"></textarea>
                                                             </div>
                                                             <div class="label-text-container">
                                                                 <div class="label-text" id="label-message">Сообщение
@@ -601,15 +601,21 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                 <div class="supporting-text">
-                                                    <div class="supporting-text-2" id="supporting-message">Введите вашe сообщение
+                                                <div class="supporting-text">
+                                                    <div class="supporting-text-2" id="supporting-message">Введите вашe
+                                                        сообщение
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="depth-frame-wrapper">
-                                                <div class="div-wrapper">
-                                                    <input type="submit" class="text-wrapper-2" id="contact-btn"
-                                                        value="Свяжитесь со мной" />
+                                            <div class="frame-15-3">
+                                                <div class="g-recaptcha"
+                                                    data-sitekey="6Lc01aUrAAAAAAAJGo8eiRCBWu13ncdGCGafkBuf"
+                                                    data-callback="onSubmitContact"></div>
+                                                <div class="depth-frame-wrapper">
+                                                    <div class="div-wrapper">
+                                                        <input type="submit" class="text-wrapper-2" id="contact-btn"
+                                                            value="Свяжитесь со мной" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

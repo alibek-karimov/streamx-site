@@ -6,26 +6,14 @@
   console.log("EmailJS initialized");
 })();
 
-window.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("contactForm")
-    .addEventListener("submit", function (event) {
-      event.preventDefault();
-      const form = new FormData(this);
-      // Show the reCAPTCHA badge
-      grecaptcha.enterprise.ready(async () => {
-        const token = await grecaptcha.enterprise.execute(
-          "6Lc01aUrAAAAAAAJGo8eiRCBWu13ncdGCGafkBuf",
-          { action: "submit" }
-        );
-        console.log("reCAPTCHA token:", token);
-        form.append('g-recaptcha-response', token);
-        const formData = Object.fromEntries(form.entries());
-        for (const [key, value] of form) {
-            console.log(`Form data ${key}:`, value);
-        }
+function onSubmitContact(token) {
+    form.append('g-recaptcha-response', token);
+        const form = document.getElementById("contactForm");
+        const formData = new FormData(form);
+        formData.append('g-recaptcha-response', token);
+        const templateProperties = Object.fromEntries(formData.entries());        
         console.log("form", formData);
-        emailjs.send("service_p3l06sf", "template_zem3rml", formData).then(
+        emailjs.send("service_p3l06sf", "template_zem3rml", templateProperties).then(
           () => {
             console.log("SUCCESS!");
           },
@@ -33,8 +21,21 @@ window.addEventListener("DOMContentLoaded", function () {
             console.log("FAILED...", error);
           }
         );
-      });
+}
 
+window.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("contactForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      // Show the reCAPTCHA badge
+      
+        grecaptcha.enterprise.execute(
+          "6Lc01aUrAAAAAAAJGo8eiRCBWu13ncdGCGafkBuf",
+          { action: "submit" }
+        );
+        console.log("reCAPTCHA token:", token);
+        
       // these IDs from the previous steps
     });
 });
