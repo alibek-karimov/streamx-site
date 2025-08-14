@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", function () {
       // Show the reCAPTCHA badge
       grecaptcha.enterprise.ready(async () => {
         const token = await grecaptcha.enterprise.execute(
-          "6LeKy6UrAAAAAA1ZaXzWcZ6Y0rH8JeOfu7YR1nrs",
+          "6Lc01aUrAAAAAAAJGo8eiRCBWu13ncdGCGafkBuf",
           { action: "submit" }
         );
         console.log("reCAPTCHA token:", token);
