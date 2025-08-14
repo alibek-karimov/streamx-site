@@ -7,7 +7,7 @@
 })();
 
 function onSubmitContact(token) {
-  form.append("g-recaptcha-response", token);
+    console.log("reCAPTCHA token received:", token);
   const form = document.getElementById("contactForm");
   const formData = new FormData(form);
   formData.append("g-recaptcha-response", token);
@@ -29,6 +29,7 @@ window.addEventListener("DOMContentLoaded", function () {
     .addEventListener("submit", function (event) {
       event.preventDefault();
       // Show the reCAPTCHA badge
+      console.log("Submitting form, executing reCAPTCHA...");
       grecaptcha.execute();
       // these IDs from the previous steps
     });
