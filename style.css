@@ -1349,7 +1349,7 @@
 }
 
 .main .frame-15 {
-  height: 400px;
+  height: 416px;
   align-items: center;
   justify-content: center;
   gap: 40px;
@@ -1412,8 +1412,8 @@
 
 .main .frame-15-3 {
   display: flex;
-  flex-direction: row;
-  gap: 40px;
+  flex-direction: column;
+  gap: 20px;
   margin-top: 20px;
   align-items: center;
   width: 100%;
@@ -1925,4 +1925,10 @@
 
 .language-switcher button {
   cursor: pointer;
+}
+
+.status-message {
+  font-weight: bold;
+  height: 16px;
+  background-color: #000;
 }

@@ -7,14 +7,7 @@
 })();
 
 function showStatus(message, isSuccess) {
-  let statusDiv = document.getElementById("contact-status");
-  if (!statusDiv) {
-    statusDiv = document.createElement("div");
-    statusDiv.id = "contact-status";
-    statusDiv.style.marginTop = "16px";
-    statusDiv.style.fontWeight = "bold";
-    document.getElementById("contactForm").appendChild(statusDiv);
-  }
+  let statusDiv = document.getElementById("statusText");
   statusDiv.textContent = message;
   statusDiv.style.color = isSuccess ? "green" : "red";
 }
