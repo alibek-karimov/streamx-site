@@ -1349,7 +1349,35 @@
 }
 
 .main .frame-15 {
-  height: 300px;
+  height: 400px;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 30px;
+  flex: 1;
+  flex-grow: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #ffffff;
+}
+
+.main .frame-15 form {
+  width: 100%;
+}
+
+
+.main .frame-15 form input.text-wrapper-2 {
+  width: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.main .frame-15-2 {
   align-items: center;
   justify-content: center;
   gap: 40px;
@@ -1383,7 +1411,7 @@
   pointer-events: none;
 }
 
-.main .phone {
+.main .form-field {
   display: flex;
   flex-direction: column;
   height: 58px;
@@ -1398,7 +1426,7 @@
   border: none;
 }
 
-.main .phone::before {
+.main .form-field::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -1580,39 +1608,6 @@
   letter-spacing: var(--m3-body-small-letter-spacing);
   line-height: var(--m3-body-small-line-height);
   font-style: var(--m3-body-small-font-style);
-}
-
-.main .email {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: relative;
-  flex: 1;
-  align-self: stretch;
-  width: 100%;
-  flex-grow: 1;
-  margin-left: -1px;
-  margin-right: -1px;
-  border-radius: 4px 4px 0px 0px;
-  border: none;
-}
-
-.main .email::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: 4px 4px 0px 0px;
-  background: linear-gradient(
-    90deg,
-    rgba(5, 116, 255, 1) 0%,
-    rgba(5, 71, 153, 1) 100%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  z-index: 1;
-  pointer-events: none;
 }
 
 .main .button {
