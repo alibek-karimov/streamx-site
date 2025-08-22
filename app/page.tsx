@@ -31,14 +31,25 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import ContactForm from "@/components/ContactForm";
 
 export default function StreamXHomePage() {
+  const { t, i18n } = useTranslation();
+  // guard: ensure capabilities.items is an array (some i18n setups return object/string)
+  const capabilitiesItemsRaw = t("capabilities.items", { returnObjects: true });
+  const capabilitiesItems: string[] = Array.isArray(capabilitiesItemsRaw)
+    ? capabilitiesItemsRaw
+    : typeof capabilitiesItemsRaw === "object" && capabilitiesItemsRaw !== null
+    ? Object.values(capabilitiesItemsRaw).map(String)
+    : [String(capabilitiesItemsRaw)];
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const recaptcaResponse = recaptchaRef.current?.getValue();
+    const recaptcaResponse = await recaptchaRef.current?.executeAsync();
     if (!recaptcaResponse) {
-      alert("Пожалуйста, подтвердите, что вы не робот.");
+      alert(t("contact.form.recaptchaMissing"));
       return;
     }
     const formData = new FormData(event.currentTarget);
@@ -52,19 +63,16 @@ export default function StreamXHomePage() {
       );
       console.log("Email sent successfully:", response);
       toast({
-        title: "Сообщение отправлено",
-        description: "Мы свяжемся с вами в ближайшее время.",
+        title: t("contact.form.sendSuccess.title"),
+        description: t("contact.form.sendSuccess.description"),
         variant: "default",
       });
     } catch (error) {
       console.error("Failed to send email:", error);
-      alert(
-        "Произошла ошибка при отправке сообщения. Пожалуйста, попробуйте позже."
-      );
+      alert(t("contact.form.sendError.alert"));
       toast({
-        title: "Ошибка отправки",
-        description:
-          "Не удалось отправить сообщение. Пожалуйста, попробуйте позже.",
+        title: t("contact.form.sendError.title"),
+        description: t("contact.form.sendError.description"),
         variant: "destructive",
       });
     }
@@ -81,38 +89,41 @@ export default function StreamXHomePage() {
                 <Play className="h-6 w-6 text-primary-foreground" />
               </div>
               <span className="text-2xl font-heading font-black neon-text">
-                STREAMX
+                {t("footer.brand")}
               </span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
               <a
-                href="#solutions"
+                href="#controller"
                 className="text-foreground hover:text-primary transition-colors hover:neon-text"
               >
-                Видеостена
+                {t("nav.videoWall")}
               </a>
               <a
                 href="#features"
                 className="text-foreground hover:text-primary transition-colors hover:neon-text"
               >
-                Возможности
+                {t("nav.features")}
               </a>
               <a
-                href="#product"
+                href="#products"
                 className="text-foreground hover:text-primary transition-colors hover:neon-text"
               >
-                Продукция
+                {t("nav.products")}
               </a>
               <a
                 href="#support"
                 className="text-foreground hover:text-primary transition-colors hover:neon-text"
               >
-                Поддержка
+                {t("nav.support")}
               </a>
             </div>
-            <Button className="tech-button neon-glow hover:scale-105 transition-transform">
-              <a href="#contact">Связаться с нами</a>
-            </Button>
+            <div className="flex items-center space-x-4">
+              <Button className="tech-button neon-glow hover:scale-105 transition-transform">
+                <a href="#contact">{t("nav.contact")}</a>
+              </Button>
+              <LanguageSwitcher />
+            </div>
           </div>
         </div>
       </nav>
@@ -127,16 +138,16 @@ export default function StreamXHomePage() {
             <div className="space-y-8">
               <div className="space-y-4">
                 <Badge className="neon-glow bg-primary/20 text-primary border-primary/30 pulse-glow">
-                  Новое поколение технологий
+                  {t("hero.badge")}
                 </Badge>
                 <h1 className="text-2xl lg:text-4xl font-heading font-black">
-                  ВИДЕОСТЕНА
+                  {t("hero.line1")}
                 </h1>
                 <h1 className="text-2xl lg:text-4xl font-heading font-black">
-                  ТРАНСЛЯЦИИ С ДРОНОВ
+                  {t("hero.line2")}
                 </h1>
                 <h1 className="text-2xl lg:text-4xl font-heading font-black">
-                  WEB ПЛАТФОРМА
+                  {t("hero.line3")}
                 </h1>
               </div>
             </div>
@@ -148,21 +159,21 @@ export default function StreamXHomePage() {
                       <CarouselItem>
                         <img
                           src="carousel1.png"
-                          alt="StreamX Video Wall"
+                          alt={t("hero.carouselAlt1")}
                           className="w-full h-auto rounded-lg object-cover"
                         />
                       </CarouselItem>
                       <CarouselItem>
                         <img
                           src="carousel2.png"
-                          alt="StreamX Drone Broadcast"
+                          alt={t("hero.carouselAlt2")}
                           className="w-full h-auto rounded-lg object-cover"
                         />
                       </CarouselItem>
                       <CarouselItem>
                         <img
                           src="carousel3.png"
-                          alt="StreamX Web Platform"
+                          alt={t("hero.carouselAlt3")}
                           className="w-full h-auto rounded-lg object-cover"
                         />
                       </CarouselItem>
@@ -180,12 +191,10 @@ export default function StreamXHomePage() {
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-4xl font-heading font-bold neon-text">
-              Наше решение
+              {t("solutions.title")}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              StreamX предоставляет комплексное программно-аппаратное решение
-              для управления видеоконтентом с использованием передовых
-              технологий
+              {t("solutions.description")}
             </p>
           </div>
 
@@ -193,38 +202,33 @@ export default function StreamXHomePage() {
             {[
               {
                 icon: Settings,
-                title: "Управление видео-стеной",
-                description:
-                  "Интуитивное управление множественными экранами с поддержкой различных форматов контента",
+                title: t("solutionFeatures.wallControl.title"),
+                description: t("solutionFeatures.wallControl.description"),
               },
               {
                 icon: EyeIcon,
-                title: "Онлайн трансляции",
-                description:
-                  "Надежная передача видео в режиме реального времени с минимальной задержкой, в том числе с дронов и других БПЛА",
+                title: t("solutionFeatures.live.title"),
+                description: t("solutionFeatures.live.description"),
               },
               {
                 icon: Cloud,
-                title: "Веб решение",
-                description:
-                  "Организуй обмен видео, аудио и данными через WEB.",
+                title: t("solutionFeatures.web.title"),
+                description: t("solutionFeatures.web.description"),
               },
               {
                 icon: Zap,
-                title: "Аппаратный видеозахват",
-                description:
-                  "Аппаратный/программный захват и воспроизведение видео через сеть.",
+                title: t("solutionFeatures.capture.title"),
+                description: t("solutionFeatures.capture.description"),
               },
               {
                 icon: PictureInPicture2,
-                title: "Мультиоконный режим",
-                description:
-                  "Организация отображения со множеством окон в режиме картинка в картинке.",
+                title: t("solutionFeatures.pip.title"),
+                description: t("solutionFeatures.pip.description"),
               },
               {
                 icon: Eye,
-                title: "Интеграция с ИИ",
-                description: "Возможность интеграции с ИИ компонентами",
+                title: t("solutionFeatures.ai.title"),
+                description: t("solutionFeatures.ai.description"),
               },
             ].map((feature, index) => (
               <Card
@@ -235,9 +239,7 @@ export default function StreamXHomePage() {
                   <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/30 transition-colors neon-glow">
                     <feature.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <CardTitle className="font-heading">
-                    {feature.title}
-                  </CardTitle>
+                  <CardTitle className="font-heading">{feature.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-muted-foreground">
@@ -260,37 +262,32 @@ export default function StreamXHomePage() {
             <div className="space-y-8">
               <div className="space-y-4">
                 <h2 className="text-4xl font-heading font-bold">
-                  Контроллер видеостены SXWall
+                  {t("productController.title")}
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Предназначены для профессионального использования в задачах,
-                  где необходимы высокая производительность и устойчивость к
-                  сбоям. Эти устройства эффективно применяются в диспетчерских,
-                  ситуационных и мониторинговых центрах, а также в
-                  конференц-залах и залах заседаний, обеспечивая надёжную
-                  визуализацию и управление видеоконтентом
+                  {t("productController.description")}
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-2 p-4 glass-effect rounded-lg neon-glow">
                   <div className="text-2xl font-heading font-bold text-primary neon-text">
-                    24/7
+                    {t("productController.stat.uptime")}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Время работы
+                    {t("productController.stat.uptimeLabel")}
                   </div>
                 </div>
                 <div className="space-y-2 p-4 glass-effect rounded-lg neon-glow">
                   <div className="text-2xl font-heading font-bold text-primary neon-text">
-                    8K+
+                    {t("productController.stat.resolution")}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Разрешение
+                    {t("productController.stat.resolutionLabel")}
                   </div>
                 </div>
               </div>
               <Button size="lg" className="tech-button neon-glow">
-                Узнать подробности
+                {t("productController.learnMore")}
               </Button>
             </div>
             <div className="relative">
@@ -298,7 +295,7 @@ export default function StreamXHomePage() {
                 <CardContent className="p-8">
                   <img
                     src="controller.png"
-                    alt="StreamX Web Platform"
+                    alt={t("hero.carouselAlt3")}
                     className="w-full h-auto rounded-lg object-cover"
                   />
                 </CardContent>
@@ -313,7 +310,7 @@ export default function StreamXHomePage() {
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-4xl font-heading font-bold neon-text">
-              Особенности
+              {t("advantages.title")}
             </h2>
           </div>
 
@@ -321,21 +318,18 @@ export default function StreamXHomePage() {
             {[
               {
                 icon: Shield,
-                title: "Надежность",
-                description:
-                  "Максимальная защита от сбоев и непрерывная работа системы",
+                title: t("advantages.reliability.title"),
+                description: t("advantages.reliability.description"),
               },
               {
                 icon: TrendingUp,
-                title: "Производительность",
-                description:
-                  "Высокая скорость обработки и передачи видеоконтента",
+                title: t("advantages.performance.title"),
+                description: t("advantages.performance.description"),
               },
               {
                 icon: MapPin,
-                title: "Сделано в КЗ",
-                description:
-                  "Разработано и произведено в Казахстане с учетом местных требований",
+                title: t("advantages.madeIn.kz.title"),
+                description: t("advantages.madeIn.kz.description"),
               },
             ].map((feature, index) => (
               <Card
@@ -361,7 +355,7 @@ export default function StreamXHomePage() {
                   <img
                     style={{ height: "350px" }}
                     src="videowall-scheme.png"
-                    alt="StreamX Videowall"
+                    alt={t("nav.videoWall")}
                     className="rounded-lg object-cover"
                   />
                 </CardContent>
@@ -369,11 +363,10 @@ export default function StreamXHomePage() {
             </div>
             <div className="space-y-8">
               <h4 className="text-2xl font-heading font-bold">
-                Максимальная эффективность и стабильность работы
+                {t("advantages.efficiency.h1")}
               </h4>
               <h4 className="text-2xl font-heading font-bold">
-                Эффективный инструмент визуализации в реальном времени — для
-                быстрого анализа и уверенного принятия решений.
+                {t("advantages.efficiency.h2")}
               </h4>
             </div>
           </div>
@@ -388,24 +381,11 @@ export default function StreamXHomePage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-4xl font-heading font-bold neon-text">
-              Возможности
+              {t("capabilities.title")}
             </h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {[
-              "Построение экранов высокого разрешения",
-              "Поддержка множества окон с функцией картинка в картинке",
-              "Поддержка до 16 входящих физических сигналов",
-              "Отображение медиа-контента",
-              "Вывод изображения с камер видеонаблюдения и IP-источников",
-              "Встроенные программные средства удаленного захвата и отображения видео изображения",
-              "Встроенные программные средства удаленной передачи видео изображения со встроенных камер",
-              "Поддержка внешнего потокового вещания",
-              "Удаленное управление через браузерное приложение с любого устройства",
-              "Настройка масштабирования и коммутации выходов",
-              "Запуск WEB страниц и приложений HTML5 / WebGL",
-              "Запуск и управление приложений Windows",
-            ].map((value, index) => (
+            {capabilitiesItems.map((value, index) => (
               <div
                 key={index}
                 className="flex items-start space-x-4 p-4 bg-card/20 rounded-lg hover:bg-card/30 transition-colors"
@@ -420,10 +400,7 @@ export default function StreamXHomePage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center mt-12">
             <div className="space-y-8">
               <h6 className="text-2xl font-heading font-bold">
-                Поддержка аппаратного ускорения видеопотоков с применением GPU
-                позволяет системе эффективно обрабатывать и передавать множество
-                источников (IP-камеры, рабочие столы и др.) в формате 2160p@60
-                на внешние сетевые устройства без потери производительности.
+                {t("capabilities.gpuSupport")}
               </h6>
             </div>
             <div className="space-y-4 w-auto">
@@ -432,7 +409,7 @@ export default function StreamXHomePage() {
                   <img
                     style={{ height: "350px" }}
                     src="videowall-controller.png"
-                    alt="StreamX Videowall"
+                    alt={t("nav.videoWall")}
                     className="rounded-lg object-cover"
                   />
                 </CardContent>
@@ -443,26 +420,22 @@ export default function StreamXHomePage() {
       </section>
 
       {/* Products line section */}
-      <section className="py-20">
+      <section id="products" className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-4xl font-heading font-bold neon-text">
-              ЛИНЕЙКА МОДЕЛЕЙ
+              {t("catalog.title")}
             </h2>
             <p className="text-xl text-muted-foreground max-w-6xl mx-auto">
-              Линейка наших продуктов разработана таким образом, чтобы
-              удовлетворять широкий спектр задач — от стандартных и базовых до
-              наиболее комплексных и специализированных. Мы предлагаем как
-              готовые модели, так и возможность индивидуальной комплектации в
-              соответствии с конкретными требованиями заказчика.
+              {t("catalog.description")}
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-8">
             {[
               {
-                title: "Light",
-                description:
-                  "Базовая модель для стандартных задач видеостен с поддержкой 4K.",
+                key: "light",
+                title: t("catalog.models.light.title"),
+                description: t("catalog.models.light.description"),
                 image: "product-light.png",
                 properties: {
                   outputInterfeices: "4 mini DisplayPort",
@@ -474,9 +447,9 @@ export default function StreamXHomePage() {
                 },
               },
               {
-                title: "Standard",
-                description:
-                  "Расширенная модель с поддержкой 8K для высококачественной визуализации.",
+                key: "standard",
+                title: t("catalog.models.standard.title"),
+                description: t("catalog.models.standard.description"),
                 image: "product-stnd.png",
                 properties: {
                   outputInterfeices: "8 DisplayPort",
@@ -488,9 +461,9 @@ export default function StreamXHomePage() {
                 },
               },
               {
-                title: "Pro",
-                description:
-                  "Профессиональная модель с расширенными возможностями и высокой производительностью.",
+                key: "pro",
+                title: t("catalog.models.pro.title"),
+                description: t("catalog.models.pro.description"),
                 image: "product-pro.png",
                 properties: {
                   outputInterfeices: "16 DisplayPort",
@@ -524,25 +497,38 @@ export default function StreamXHomePage() {
                     {product.description}
                   </p>
                   <div className="mt-4 space-y-2">
-                    {Object.entries(product.properties).map(([key, value]) => (
-                      <div key={key} className="flex justify-between">
-                        <span className="text-xs text-muted-foreground">
-                          {key}
-                        </span>
-                        <span className="text-sm font-semibold">{value}</span>
-                      </div>
-                    ))}
+                    {Object.entries(product.properties).map(([key, value]) => {
+                      // map property keys to translation keys in catalog.properties
+                      const map: Record<string, string> = {
+                        outputInterfeices: "outputInterfaces",
+                        outputInterfaces: "outputInterfaces",
+                        maxResolution: "maxResolution",
+                        inputs: "inputs",
+                        CPU: "cpu",
+                        cpu: "cpu",
+                        RAM: "ram",
+                        ram: "ram",
+                        videoMemory: "videoMemory",
+                      };
+                      const labelKey = map[key] ?? key;
+                      return (
+                        <div key={key} className="flex justify-between">
+                          <span className="text-xs text-muted-foreground">
+                            {t(`catalog.properties.${labelKey}`)}
+                          </span>
+                          <span className="text-sm font-semibold">{value}</span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </CardContent>
                 <CardAction className="w-full flex flex-col text-center justify-center items-center p-4 space-y-2">
-                  <div className="w-full flex flex-row justify-center items-center">
-                    <Button className="w-40 tech-button neon-glow hover:scale-105 transition-transform">
-                      Узнать цену
-                    </Button>
-                  </div>
-                  <div className="w-full flex flex-row justify-center items-center">
-                    <Button className="w-40 tech-button neon-glow hover:scale-105 transition-transform">
-                      Datasheet
+                  <div className="w-full flex flex-row justify-center items-center gap-12">
+                    <Button className="w-auto tech-button neon-glow hover:scale-105 transition-transform">
+                      {t("catalog.actions.price")}
+                    </Button>                  
+                    <Button className="w-auto tech-button neon-glow hover:scale-105 transition-transform">
+                      {t("catalog.actions.datasheet")}
                     </Button>
                   </div>
                 </CardAction>
@@ -557,11 +543,10 @@ export default function StreamXHomePage() {
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-4xl font-heading font-bold neon-text">
-              Поддержка и сервис
+              {t("support.title")}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Мы предоставляем полный спектр услуг поддержки для обеспечения
-              бесперебойной работы вашей системы
+              {t("support.description")}
             </p>
           </div>
 
@@ -569,27 +554,23 @@ export default function StreamXHomePage() {
             {[
               {
                 icon: Settings,
-                title: "Техническая поддержка 24/7",
-                description:
-                  "Круглосуточная техническая поддержка для решения любых вопросов",
+                title: t("support.services.tech.title"),
+                description: t("support.services.tech.description"),
               },
               {
                 icon: Shield,
-                title: "Гарантийное обслуживание",
-                description:
-                  "Полная гарантия на оборудование и программное обеспечение",
+                title: t("support.services.warranty.title"),
+                description: t("support.services.warranty.description"),
               },
               {
                 icon: Brain,
-                title: "Обучение персонала",
-                description:
-                  "Комплексное обучение вашей команды работе с системой",
+                title: t("support.services.training.title"),
+                description: t("support.services.training.description"),
               },
               {
                 icon: Zap,
-                title: "Удаленная диагностика",
-                description:
-                  "Быстрая диагностика и устранение неисправностей удаленно",
+                title: t("support.services.remote.title"),
+                description: t("support.services.remote.description"),
               },
             ].map((service, index) => (
               <Card
@@ -610,72 +591,6 @@ export default function StreamXHomePage() {
               </Card>
             ))}
           </div>
-
-          {/* <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h3 className="text-2xl font-heading font-bold neon-text">
-                Сервисные пакеты
-              </h3>
-              <div className="space-y-4">
-                <Card className="glass-effect neon-glow">
-                  <CardContent className="p-6">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-heading font-bold text-primary">
-                          Базовый пакет
-                        </h4>
-                        <p className="text-sm text-muted-foreground">
-                          Стандартная поддержка в рабочие часы
-                        </p>
-                      </div>
-                      <Badge className="bg-primary/20 text-primary border-primary/30">
-                        Включено
-                      </Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card className="glass-effect neon-glow">
-                  <CardContent className="p-6">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-heading font-bold text-primary">
-                          Премиум пакет
-                        </h4>
-                        <p className="text-sm text-muted-foreground">
-                          24/7 поддержка + приоритетное обслуживание
-                        </p>
-                      </div>
-                      <Badge className="bg-chart-1/20 text-chart-1 border-chart-1/30">
-                        Рекомендуем
-                      </Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-            <div className="relative">
-              <Card className="holographic neon-glow scan-line">
-                <CardContent className="p-8">
-                  <div className="text-center space-y-6">
-                    <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto neon-glow pulse-glow">
-                      <Shield className="h-10 w-10 text-primary" />
-                    </div>
-                    <div className="space-y-2">
-                      <h4 className="text-xl font-heading font-bold neon-text">
-                        Время отклика
-                      </h4>
-                      <div className="text-3xl font-heading font-black text-primary neon-text">
-                        15 мин
-                      </div>
-                      <p className="text-sm text-muted-foreground">
-                        Среднее время ответа службы поддержки
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div> */}
         </div>
       </section>
 
@@ -684,11 +599,10 @@ export default function StreamXHomePage() {
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-4xl font-heading font-bold neon-text">
-              Связаться с нами
+              {t("contact.title")}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Готовы обсудить ваш проект? Свяжитесь с нашими экспертами для
-              получения персонализированного решения
+              {t("contact.description")}
             </p>
           </div>
 
@@ -696,7 +610,7 @@ export default function StreamXHomePage() {
             <div className="space-y-8">
               <div className="space-y-6">
                 <h3 className="text-2xl font-heading font-bold neon-text">
-                  Контактная информация
+                  {t("contact.contactInfo.title")}
                 </h3>
                 <div className="space-y-4">
                   <Card className="glass-effect neon-glow">
@@ -711,7 +625,7 @@ export default function StreamXHomePage() {
                             target="_blank"
                             className="font-heading font-bold"
                           >
-                            Написать на Whatsapp
+                            {t("contact.whatsapp")}
                           </a>
                         </div>
                       </div>
@@ -728,7 +642,7 @@ export default function StreamXHomePage() {
                             href="mailto:info@streamx.kz"
                             className="font-heading font-bold"
                           >
-                            Написать на info@streamx.kz
+                            {t("contact.emailLink")}
                           </a>
                         </div>
                       </div>
@@ -739,79 +653,7 @@ export default function StreamXHomePage() {
             </div>
 
             <div className="relative">
-              <Card className="holographic neon-glow scan-line">
-                <CardHeader>
-                  <CardTitle className="font-heading neon-text">
-                    Отправить сообщение
-                  </CardTitle>
-                  <CardDescription>
-                    Заполните форму и мы свяжемся с вами в ближайшее время
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <form onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Имя</label>
-                        <input
-                          name="name"
-                          type="text"
-                          className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all neon-glow"
-                          placeholder="Ваше имя"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Компания</label>
-                        <input
-                          name="company"
-                          type="text"
-                          className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all neon-glow"
-                          placeholder="Название компании"
-                        />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Email</label>
-                      <input
-                        name="email"
-                        type="email"
-                        className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all neon-glow"
-                        placeholder="your@email.com"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Телефон</label>
-                      <input
-                        name="phone"
-                        type="tel"
-                        className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all neon-glow"
-                        placeholder="+7 (___) ___-__-__"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Сообщение</label>
-                      <textarea
-                        name="message"
-                        rows={4}
-                        className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all neon-glow resize-none"
-                        placeholder="Расскажите о вашем проекте..."
-                      />
-                    </div>
-                    <ReCAPTCHA
-                      ref={recaptchaRef}
-                      sitekey="6Lc01aUrAAAAAAAJGo8eiRCBWu13ncdGCGafkBuf"
-                      onChange={() => console.log("reCAPTCHA changeed")}
-                      size="invisible"
-                    />
-                    <Button
-                      className="w-full tech-button neon-glow hover:scale-105 transition-all"
-                      type="submit"
-                    >
-                      Отправить сообщение
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
+              <ContactForm />
             </div>
           </div>
         </div>
@@ -826,11 +668,11 @@ export default function StreamXHomePage() {
                 <Play className="h-5 w-5 text-primary-foreground" />
               </div>
               <span className="text-xl font-heading font-black neon-text">
-                STREAMX
+                {t("footer.brand")}
               </span>
             </div>
             <div className="text-sm text-muted-foreground">
-              © 2024 StreamX. Все права защищены.
+              {t("footer.copyright")}
             </div>
           </div>
         </div>

@@ -1,0 +1,142 @@
+{
+  "nav": {
+    "videoWall": "Video Wall",
+    "features": "Features",
+    "products": "Products",
+    "support": "Support",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "badge": "Next‑generation technology",
+    "line1": "VIDEO WALL",
+    "line2": "DRONE STREAMING",
+    "line3": "WEB PLATFORM",
+    "carouselAlt1": "StreamX: video wall",
+    "carouselAlt2": "StreamX: drone streaming",
+    "carouselAlt3": "StreamX: web platform"
+  },
+  "solutions": {
+    "title": "Our solution",
+    "description": "StreamX provides a complete hardware and software solution for managing video content using advanced technologies."
+  },
+  "solutionFeatures": {
+    "wallControl.title": "Video wall control",
+    "wallControl.description": "Intuitive control of multiple screens with support for various content formats.",
+    "live.title": "Live streaming",
+    "live.description": "Reliable real‑time video delivery with minimal latency, including drone and UAV feeds.",
+    "web.title": "Web solution",
+    "web.description": "Enable sharing of video, audio and data over the web.",
+    "capture.title": "Hardware video capture",
+    "capture.description": "Hardware/software capture and playback of video over the network.",
+    "pip.title": "Multi‑window mode",
+    "pip.description": "Display multiple windows in picture‑in‑picture mode.",
+    "ai.title": "AI integration",
+    "ai.description": "Support for integration with AI components."
+  },
+  "productController": {
+    "title": "SXWall Video Wall Controller",
+    "description": "Designed for professional use where high performance and fault tolerance are required. These devices are ideal for control rooms, situational and monitoring centers, conference rooms and boardrooms, providing reliable visualization and video management.",
+    "stat.uptime": "24/7",
+    "stat.uptimeLabel": "Uptime",
+    "stat.resolution": "8K+",
+    "stat.resolutionLabel": "Resolution",
+    "learnMore": "Learn more"
+  },
+  "advantages": {
+    "title": "Highlights",
+    "reliability.title": "Reliability",
+    "reliability.description": "Maximum protection against failures and continuous system operation.",
+    "performance.title": "Performance",
+    "performance.description": "High speed processing and transmission of video content.",
+    "madeIn.kz.title": "Made in Kazakhstan",
+    "madeIn.kz.description": "Designed and manufactured in Kazakhstan with local requirements in mind.",
+    "efficiency.h1": "Maximum efficiency and operational stability",
+    "efficiency.h2": "An effective real‑time visualization tool — for fast analysis and confident decision making."
+  },
+  "capabilities": {
+    "title": "Capabilities",
+    "items": [
+      "High‑resolution display wall construction",
+      "Support for multiple windows with picture‑in‑picture",
+      "Support for up to 16 physical inputs",
+      "Media content playback",
+      "Output from CCTV and IP camera sources",
+      "Built‑in remote capture and display tools",
+      "Built‑in remote transmission tools for onboard cameras",
+      "Support for external streaming",
+      "Remote management via browser from any device",
+      "Scaling and output routing configuration",
+      "Run web pages and HTML5 / WebGL applications",
+      "Run and manage Windows applications"
+    ],
+    "gpuSupport": "GPU acceleration for video streams enables efficient processing and delivery of many sources (IP cameras, desktops, etc.) at 2160p@60 to external network devices without performance loss."
+  },
+  "catalog": {
+    "title": "PRODUCT LINE",
+    "description": "Our product range is designed to meet a wide spectrum of tasks — from basic to the most complex and specialized. We offer off‑the‑shelf models and options for custom configurations to meet client requirements.",
+    "models": {
+      "light.title": "Light",
+      "light.description": "Entry model for standard video wall tasks with 4K support.",
+      "standard.title": "Standard",
+      "standard.description": "Extended model with 8K support for high‑quality visualization.",
+      "pro.title": "Pro",
+      "pro.description": "Professional model with advanced capabilities and high performance."
+    },
+    "properties": {
+      "outputInterfaces": "Output interfaces",
+      "maxResolution": "Maximum resolution",
+      "inputs": "Inputs",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "videoMemory": "Video memory"
+    },
+    "actions.price": "Request price",
+    "actions.datasheet": "Datasheet"
+  },
+  "support": {
+    "title": "Support & Service",
+    "description": "We provide a full range of support services to ensure uninterrupted operation of your system.",
+    "services": {
+      "tech.title": "24/7 Technical Support",
+      "tech.description": "Round‑the‑clock technical support for any issues.",
+      "warranty.title": "Warranty service",
+      "warranty.description": "Full warranty on hardware and software.",
+      "training.title": "Staff training",
+      "training.description": "Comprehensive training for your team to operate the system.",
+      "remote.title": "Remote diagnostics",
+      "remote.description": "Fast remote diagnostics and issue resolution."
+    }
+  },
+  "contact": {
+    "title": "Contact us",
+    "description": "Ready to discuss your project? Contact our experts for a personalized solution.",
+    "contactInfo.title": "Contact information",
+    "whatsapp": "Message on WhatsApp",
+    "emailLink": "Email info@streamx.kz",
+    "form": {
+      "title": "Send a message",
+      "description": "Fill in the form and we will contact you shortly.",
+      "label.name": "Name",
+      "placeholder.name": "Your name",
+      "label.company": "Company",
+      "placeholder.company": "Company name",
+      "label.email": "Email",
+      "placeholder.email": "your@email.com",
+      "label.phone": "Phone",
+      "placeholder.phone": "+7 (___) ___-__-__",
+      "label.message": "Message",
+      "placeholder.message": "Tell us about your project...",
+      "recaptchaMissing": "Please verify that you are not a robot.",
+      "submit": "Send message",
+      "sendSuccess.title": "Message sent",
+      "sendSuccess.description": "We will contact you shortly.",
+      "sendError.alert": "An error occurred while sending the message. Please try again later.",
+      "sendError.title": "Send error",
+      "sendError.description": "Failed to send the message. Please try again later."
+    }
+  },
+  "footer": {
+    "brand": "STREAMX",
+    "copyright": "© 2024 StreamX. All rights reserved."
+  }
+}

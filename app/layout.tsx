@@ -4,6 +4,7 @@ import { Montserrat } from "next/font/google"
 import { Open_Sans } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
+import I18nProvider from "../i18n/i18n-provider"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -35,7 +36,10 @@ export default function RootLayout({
       <head>
          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
         </head>
-      <body className="font-sans">{children}<Toaster /></body>
+      <body className="font-sans">
+        <I18nProvider>{children}</I18nProvider>
+        <Toaster />
+      </body>
     </html>
   )
 }
